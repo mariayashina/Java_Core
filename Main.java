@@ -1,42 +1,48 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Main {
+
     public static void main(String[] args) {
-        Team[] members = {
-                new Human(2, 5, "Игорь"),
-                new Human(1, 2, "Аркадий"),
-                new Cat(3, 4, "Мурзик"),
-                new Cat(1, 1, "Барсик"),
-                new Robot(0, 10, 10),
-                new Robot(4,7,12)
-        };
+        // Задание 1
+        Integer[] intArr = new Integer[2];
 
-        Obstacle[] obstacles = {
-                new RunningTrack(1),
-                new RunningTrack(4),
-                new Wall(1),
-                new Wall(3)
-        };
+        intArr[0] = 1;
+        intArr[1] = 2;
 
-        for (Team member : members) {
-            System.out.println("К прохождению препятствий приступает " + member);
-            boolean winner = true;
-            for (Obstacle obstacle : obstacles) {
-                System.out.println(member + " пробует пройти " + obstacle);
-                if (obstacle.toJump(member.getMaxHeight()) ||
-                        obstacle.toRun(member.getMaxLength())) {
-                    System.out.println("И у него получается!");
-                } else {
-                    winner = false;
-                    System.out.println("И у него не получается.");
-                    break;
-                }
-            }
+        System.out.println(Arrays.deepToString(intArr));
+        change(intArr, 0, 1);
+        System.out.println(Arrays.deepToString(intArr));
 
-            if(winner) {
-                System.out.println(member + " прошёл дистанцию!");
-            } else {
-                System.out.println(member + " проиграл.");
-            }
-            System.out.println();
-        }
+        // Задание 2
+        ArrayList<Integer> arrList = toArrayList(intArr);
+
+        // Задание 3
+        Apple apple1 = new Apple();
+        Apple apple2 = new Apple();
+        Apple apple3 = new Apple();
+
+        Orange orange1 = new Orange();
+        Orange orange2 = new Orange();
+
+        Box<Apple> box1 = new Box<Apple>(apple1, apple2, apple3);
+        Box<Orange> box2 = new Box<Orange>(orange1, orange2);
+
+        System.out.println(box1.compare(box2));
+
+        Box<Orange> box3 = new Box<Orange>();
+        box2.transfer(box3);
+    }
+
+
+    public static void change(Object[] arr, int index1, int index2) {
+        Object tmp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = tmp;
+    }
+
+
+    public static <T> ArrayList<T> toArrayList(T[] arr) {
+        return new ArrayList<T>(Arrays.asList(arr));
     }
 }
