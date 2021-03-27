@@ -1,42 +1,53 @@
+import java.util.*;
+
+class PhoneBook {
+    private Map<String, HashSet<String>> map;
+
+    PhoneBook() {
+        this.map = new HashMap<>();
+    }
+
+    void add(String lastName, String phone) {
+        HashSet<String> numbers;
+
+        if (map.containsKey(lastName)) {
+            numbers = map.get(lastName);
+        } else {
+            numbers = new HashSet<>();
+        }
+        numbers.add(phone);
+        map.put(lastName, numbers);
+    }
+
+    Set<String> get(String lastName) {
+        System.out.println(lastName);
+        return map.get(lastName);
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
-        Team[] members = {
-                new Human(2, 5, "Игорь"),
-                new Human(1, 2, "Аркадий"),
-                new Cat(3, 4, "Мурзик"),
-                new Cat(1, 1, "Барсик"),
-                new Robot(0, 10, 10),
-                new Robot(4,7,12)
-        };
+        String[] words = {"sky", "day", "night", "light", "swift", "marble", "darkness", "night", "check", "light"};
 
-        Obstacle[] obstacles = {
-                new RunningTrack(1),
-                new RunningTrack(4),
-                new Wall(1),
-                new Wall(3)
-        };
-
-        for (Team member : members) {
-            System.out.println("К прохождению препятствий приступает " + member);
-            boolean winner = true;
-            for (Obstacle obstacle : obstacles) {
-                System.out.println(member + " пробует пройти " + obstacle);
-                if (obstacle.toJump(member.getMaxHeight()) ||
-                        obstacle.toRun(member.getMaxLength())) {
-                    System.out.println("И у него получается!");
-                } else {
-                    winner = false;
-                    System.out.println("И у него не получается.");
-                    break;
-                }
-            }
-
-            if(winner) {
-                System.out.println(member + " прошёл дистанцию!");
-            } else {
-                System.out.println(member + " проиграл.");
-            }
-            System.out.println();
+        Map<String, Integer> map = new HashMap<>();
+        for (String word : words) {
+            map.put(word, map.getOrDefault(word, 0) + 1);
         }
+        System.out.println(map);
+
+        System.out.println(map.keySet());
+
+        System.out.println();
+        PhoneBook pb = new PhoneBook();
+
+        pb.add("Yashina", "+79286456969");
+        pb.add("Ivanov", "+79467653446");
+        pb.add("Petrov", "+79128673475");
+        pb.add("Sidorov", "+76546579712");
+        pb.add("Povarov", "+79053721295");
+        pb.add("Yashina", "+79257613464");
+
+        String lastName = "Yashina";
+        System.out.println(pb.get(lastName));
     }
 }
